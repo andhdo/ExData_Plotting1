@@ -2,7 +2,8 @@
 
 target_zip_folder <- "exdata-data-household_power_consumption"
 source_zip_file <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
-subset_filename <- "_subset_data.dat"
+subset_filename <- "_subset_data.csv"
+output_figures_folder <- "output_figures"
 
 # download the file & uncompress it
 download_raw_package <- function() {
@@ -24,7 +25,23 @@ download_raw_package <- function() {
 }
 
 install_required_packages <- function() {
-  install.packages("sqldf")
+  if(!require("sqldf")) {
+    install.packages("sqldf")
+  }
+  
+}
+
+create_output_figures_folder <- function() {
+  if(!file.exists(output_figures_folder)) {
+    dir.create(output_figures_folder, showWarnings = FALSE)
+  }
+}
+
+# load the prerrequisites
+load_prerequisites <- function() {
+  install_required_packages()
+  download_raw_package()
+  create_output_figures_folder()
 }
 
 load_data <- function() {
@@ -46,7 +63,10 @@ load_data <- function() {
     # dim(x_subset)
     x_subset$date_time <- strptime(paste(x_subset$Date, x_subset$Time, sep=" "), "%d/%m/%Y %H:%M:%S")    
     
-    write.table(x_subset,file=subset_filename)
+    write.csv(x_subset,file=subset_filename)
     
+  } else {
+    x_subset <- read.csv(file=subset_filename)
   }
+  x_subset
 }

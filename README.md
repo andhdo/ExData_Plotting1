@@ -1,23 +1,23 @@
 ## Execution
 
-0. load rstudio as administrator and install required packages
-
+1. Load rstudio as administrator and install required packages. Then
+   download the dataset associated package to calculate the sub-dataset to process. 
+   It creates a subdirectory with the name of the zip and without extension.
+   Use the following instructions for this purpose.
+   Also it calculates the sub-dataset and creates a file to use-it to process the plots (_subset_data.csv)
 ´´´
 source("load_data.R")
-install_required_packages()
+load_prerequisites()
 ´´´
 
-
-1. Download the dataset associated package to calculate the sub-dataset to process. 
-   it creates a subdirectory with the name of the zip and without extension.
-   Use the following instructions for that purpose
-
+2. Execute each plot with the following code. varying the index of the figures
 ´´´
-source("load_data.R")
-download_raw_package()
+source("plot1.R")
+plot1()
 ´´´
+3. View the results in the "output_figures" folder
 
-2. Calculate the sub-dataset and create a file to use-it to process the plots
+
 
 
 
