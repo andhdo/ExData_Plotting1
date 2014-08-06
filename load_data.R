@@ -2,6 +2,7 @@
 
 target_zip_folder <- "exdata-data-household_power_consumption"
 source_zip_file <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
+subset_filename <- "_subset_data.dat"
 
 # download the file & uncompress it
 download_raw_package <- function() {
@@ -30,7 +31,6 @@ load_data <- function() {
   
   library(sqldf)
   
-  subset_filename <- "_subset_data.csv"
   alldataset_filename <- paste0(target_zip_folder,"/", "household_power_consumption.txt")
   
   if(!file.exists(subset_filename)) {
@@ -40,9 +40,13 @@ load_data <- function() {
     # read.csv.sql sql = "select * from file where Date = '1/1/2007' or Date = '2/1/2007'"
     all_dataset <- read.csv(alldataset_filename,  sep=";", stringsAsFactors=FALSE, header = TRUE, na.strings = "?")
     
-    
     # calculate the subset
+    x_subset <- all_dataset[(all_dataset$Date == "1/2/2007") | (all_dataset$Date == "2/2/2007"),]
+    # dim(all_dataset)
+    # dim(x_subset)
+    x_subset$date_time <- strptime(paste(x_subset$Date, x_subset$Time, sep=" "), "%d/%m/%Y %H:%M:%S")    
     
+    write.table(x_subset,file=subset_filename)
     
   }
 }
