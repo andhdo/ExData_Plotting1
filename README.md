@@ -1,3 +1,26 @@
+## Execution
+
+0. load rstudio as administrator and install required packages
+
+´´´
+source("load_data.R")
+install_required_packages()
+´´´
+
+
+1. Download the dataset associated package to calculate the sub-dataset to process. 
+   it creates a subdirectory with the name of the zip and without extension.
+   Use the following instructions for that purpose
+
+´´´
+source("load_data.R")
+download_raw_package()
+´´´
+
+2. Calculate the sub-dataset and create a file to use-it to process the plots
+
+
+
 ## Introduction
 
 This assignment uses data from
